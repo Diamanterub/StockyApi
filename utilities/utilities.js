@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 
 const generateToken = (user_info, callback) => {
-    let secret = process.env.SECRET; 
+    let secret = "" + process.env.JWT_KEY; 
     let token = jwt.sign({
         data: user_info,
     }, secret, {expiresIn: '24h'});
@@ -12,7 +12,7 @@ const validateToken = (token, callback) => {
     if(!token) {
         return callback(false); 
     }
-    let secret = process.env.SECRET; 
+    let secret = "" + process.env.JWT_KEY; 
     jwt.verify(token.replace('Bearer ', ''), secret, function(error, decoded) {
         if(error) {
             return callback(false);

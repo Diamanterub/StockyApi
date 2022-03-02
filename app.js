@@ -3,8 +3,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const port = process.env.Port || 3001;
+const port = process.env.Port || 3002;
 const users = require('./routes/route_users')
+const stocks = require("./routes/routes_stocks")
 const utilities = require('./utilities/utilities')
 
 const app = express()
@@ -35,6 +36,7 @@ const auth = function(req, res, next) {
 app.use(express.json());
 app.use(auth); 
 app.use('/', users)
+app.use("/stocks",stocks)
 
 
 
@@ -44,7 +46,6 @@ app.get("/", (req, res) => {
         msg: "Welcome to the StockyAPI!"
     })
 })
-
 
 //Credentials
 const dbUser = process.env.DB_USER
